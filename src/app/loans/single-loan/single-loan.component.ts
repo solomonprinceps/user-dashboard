@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MainService } from 'src/app/core/services/main.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-single-loan',
@@ -14,7 +15,7 @@ export class SingleLoanComponent implements OnInit {
   loan: any;
   repayments: any;
   showFinanceAlert: boolean;
-  constructor(private service: MainService, private title: Title, private activatedRoute: ActivatedRoute) {
+  constructor(private service: MainService, private title: Title, private activatedRoute: ActivatedRoute, private message: NzMessageService) {
     this.title.setTitle('View Loan');
    }
 
@@ -37,6 +38,14 @@ export class SingleLoanComponent implements OnInit {
         } else {
           this.showFinanceAlert = true;
         }
+      }
+    });
+  }
+
+  requestRefund() {
+    this.service.requestrefunds(this.loan?.loan_application_id).subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.message.create('success', data.message);
       }
     });
   }

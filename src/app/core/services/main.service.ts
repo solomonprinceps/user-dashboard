@@ -36,4 +36,9 @@ export class MainService {
   loanApply(details) {
     return this.http.post(`${environment.api}customer/apply`, details);
   }
+
+  //solomon code
+  requestrefunds(loanid) {
+    return this.http.post(`${environment.api}customer/refund/request`, {loanid: loanid})
+  }
 }

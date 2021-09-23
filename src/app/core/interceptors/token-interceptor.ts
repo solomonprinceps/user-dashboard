@@ -51,7 +51,6 @@ export class TokenInterceptor implements HttpInterceptor {
                 });
             } else if (errorStatus === 400) {
                 this.message.error(error.error.message);
-
             } else if (errorStatus === 500) {
                 // tslint:disable-next-line: max-line-length
                 this.message.error('Something went wrong! This is likely from IT, we will fix it soon. Please try again later');
