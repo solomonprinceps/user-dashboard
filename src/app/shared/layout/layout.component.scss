@@ -1,0 +1,16 @@
+main {
+  padding: 9rem 1rem 1rem 1rem;
+
+  @media all and (min-width: 768px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 10rem;
+  }
+
+  @media all and (min-width: 992px) {
+    padding-left: 8rem;
+    padding-right: 8rem;
+    padding-top: 12rem;
+  }
+
+}

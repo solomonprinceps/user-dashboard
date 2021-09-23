@@ -1,0 +1,26 @@
+/*user defined styles*/
+
+:root {
+  --background-default: '#A1CBFD';
+  --color-primary: '#2E4E74';
+  --text-default: '#333333';
+  --background-active: '#333333';
+  --text-active: '#FFFFFF';
+}
+
+@import "abstract/variables";
+
+@import "base/base";
+
+@import "base/typography";
+
+@import "components/button";
+@import "components/container";
+@import "components/auth";
+@import "components/scrollbar";
+@import "components/page";
+@import "components/table";
+@import "components/card";
+@import "components/input";
+@import "components/custom";
+@import "components/switch";

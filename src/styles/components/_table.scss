@@ -1,0 +1,228 @@
+@import '../abstract/variables';
+
+// table {
+//   border-collapse: collapse;
+// }
+
+// .table {
+//   width: 100%;
+//   max-width: 100%;
+//   margin-bottom: 1rem;
+//   background-color: transparent;
+
+//   .action__btn {
+//     border: 1px solid rgba(0, 0, 0, 0.5);
+//   }
+
+//   &__bordered {
+//     border: 1px solid $color-ash;
+
+//     td,
+//     th {
+//       border-top: 1px solid $color-ash;
+//     }
+//   }
+
+//   &__container {
+//     display: block;
+//     width: 100%;
+//     overflow-x: auto;
+//   }
+
+//   thead,
+//   .thead {
+//     &__dark {
+//       th {
+//         color: $color-white;
+//         background-color: $color-deep-black;
+//         border-color: $color-black;
+//       }
+//     }
+
+
+
+//     th {
+//       vertical-align: bottom;
+//       text-align: left;
+//       font-size: $font-size-regular-alt;
+//       border: 1px solid #e9ecef;
+//       color: #495057;
+//       white-space: nowrap;
+//       background: #f8f9fa;
+//       border-width: 0 0 1px 0;
+//       transition: box-shadow 0.2s;
+//     }
+//   }
+
+//   .tbody,
+//   tbody {
+//     tr {
+//       font-size: $font-size-regular;
+//       background-color: $color-white;
+//     }
+//     td{
+//       text-align: left;
+//     border: 1px solid #e9ecef;
+//     border-width: 0 0 1px 0;
+//     padding: 1.25rem 1.25rem;
+//     }
+//   }
+
+//   td,
+//   th {
+//     padding: 1rem;
+//     vertical-align: top;
+//   }
+// }
+
+.customtable {
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 2.5px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+
+  * {
+    position: relative;
+  }
+
+  thead {
+    tr {
+      height: 60px;
+      // background: var(--background-default);
+      background: #A1CBFD;
+
+      th {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 14px;
+        padding-left: 10px;
+        // color: $color-deep-black;
+        color: var(--text-default);
+        text-transform: capitalize;
+
+        &:first-of-type {
+          padding-left: 20px;
+        }
+
+        &:last-of-type {
+          padding-right: 20px;
+        }
+      }
+    }
+  }
+
+  tbody {
+
+    &.haserror {
+      tr {
+        background-color: rgba($color-danger, .65) !important;
+        color: $color-white;
+      }
+    }
+
+    tr {
+      height: 60px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 14px;
+      color: $color-black;
+
+      &:nth-child(odd) {
+        background-color: $app-background;
+      }
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid #ccc;
+      }
+
+      th {
+        padding-left: 10px;
+      }
+
+      td {
+        padding-left: 10px;
+
+        &:first-of-type {
+          padding-left: 20px;
+        }
+
+        &:last-of-type {
+          padding-right: 20px;
+        }
+      }
+    }
+  }
+
+  &_footer {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .paginate {
+      display: flex;
+      align-items: center;
+
+      &_text {
+        display: flex;
+        flex-direction: column;
+        margin-right: 1rem;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 14px;
+        color: $color-deep-black;
+
+        @media screen and (min-width: 767.99px) {
+          display: inline;
+          flex-direction: row;
+        }
+      }
+    }
+  }
+
+  &_block {
+    display: block;
+    width: 100%;
+    overflow: auto;
+  }
+
+  &--bordered {
+    border: 1px solid #C4C4C4;
+
+    tr {
+      &:first-child {
+
+        th,
+        td {
+          border: 1px solid #dee2e6;
+          border-top: 0 !important;
+        }
+      }
+
+      th,
+      td {
+        border: 1px solid #dee2e6;
+        border-bottom: 0 !important;
+      }
+
+      th {
+        &:first-child {
+          // background-color: red !important;
+          border-left: 0 !important;
+        }
+      }
+
+      td {
+        &:last-child {
+          // background-color: red !important;
+          border-right: 0 !important;
+        }
+      }
+    }
+  }
+}

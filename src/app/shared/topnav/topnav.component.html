@@ -1,0 +1,40 @@
+<nav class="topnav navbar navbar-expand-lg">
+  <a [routerLink]="['/dashboard']" class="topnav_logo me-auto">
+    credit wallet
+  </a>
+  <a class="navbar-toggler button button--outline ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i nz-icon nzType="menu-unfold" nzTheme="outline" class="text--white"></i>
+  </a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: unset;">
+   <div class="topnav_menu">
+    <a [routerLink]="['/dashboard']" routerLinkActive="activeLink" class="topnav_link">
+      account summary
+    </a>
+    <a [routerLink]="['/loans/all']" routerLinkActive="activeLink"  class="topnav_link">
+      my loans
+    </a>
+    <a [routerLink]="['/loans/new']" routerLinkActive="activeLink" class="topnav_link">
+      add new loan
+    </a>
+    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="d-flex align-items-center">
+      <nz-avatar [nzSize]="45" [nzText]="userInitials"></nz-avatar>
+      <div class="topnav_user">
+        <span>{{user?.borrower_firstname}} {{user?.borrower_lastname}}</span>
+        <i nz-icon nzType="down"></i>
+      </div>
+    </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item class="text--capital">
+          <a [routerLink]="['/change-password']" routerLinkActive="text--primary" >
+            &nbsp;change password&nbsp;
+          </a>
+        </li>
+        <li (click)="logOut()" nz-menu-item class="text--capital text--danger">
+          <a>&nbsp;log out&nbsp;</a>
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+   </div>
+  </div>
+</nav>

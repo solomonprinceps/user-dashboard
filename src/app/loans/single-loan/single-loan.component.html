@@ -1,0 +1,265 @@
+<section class="loans">
+  <div class="page">
+    <h4 class="page_title text--capital">{{loan?.loan_application_id}}</h4>
+  </div>
+  <div>
+    <ng-container *ngIf="loanData; else noData">
+      <ng-container *ngIf="showFinanceAlert; else showLoan">
+        <div class="card shadow">
+          <div class="card-body text-center p-5">
+            <p class="text--medium">Unavailable to display loan details. Please contact our customer service team for this.</p>
+            <div class="mt-3 text--medium">
+              <a href="tel:07085698828" class="text--primary">07085698828</a> or <a href="tel:07001235529" class="text--primary">07001235529</a>
+            </div>
+            <div class="mt-3 text--medium text--primary">
+              <a href="mailto:support@creditwallet.ng">support@creditwallet.ng</a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #showLoan>
+        <div class="customtable_block customtable--bordered mb-5">
+          <table class="customtable">
+            <thead>
+              <tr>
+                <th class="text-nowrap">
+                  Amount
+                </th>
+                <th class="text-nowrap">
+                  Status
+                </th>
+                <th class="text-nowrap">
+                  Duration
+                </th>
+                <th class="text-nowrap">
+                  Loan Release Date
+                </th>
+                <th class="text-nowrap">
+                  Maturity Date
+                </th>
+                <th class="text-nowrap">
+                  Monthly Repayment
+                </th>
+                <th class="text-nowrap">
+                  Total Due
+                </th>
+                <th class="text-nowrap">
+                  Late Fees
+                </th>
+                <th class="text-nowrap">
+                  Total Paid
+                </th>
+                <th class="text-nowrap">
+                  Balance <br>
+                  (Late Fees + Total Due - Total Paid)
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-nowrap">
+                  {{loan.loan_principal_amount | currency: '₦'}}
+                </td>
+                <td class="text-nowrap">
+                  <nz-tag *ngIf="loanData.loan_status == 1" [nzColor]="'#A1CBFD'">Open</nz-tag>
+                  <nz-tag *ngIf="loanData.loan_status == 2" [nzColor]="'#11EE42'">Closed</nz-tag>
+                </td>
+                <td class="text-nowrap">
+                  {{loan.loan_duration}} months
+                </td>
+                <td class="text-nowrap">
+                  {{loan.loan_released_date}}
+                </td>
+                <td class="text-nowrap">
+                  {{loan.due_date}}
+                </td>
+                <td class="text-nowrap">
+                  {{loan.first_repayment_amount | currency: '₦'}}
+                </td>
+                <td class="text-nowrap">
+                  {{(loan.first_repayment_amount * loan.loan_duration) | currency: '₦'}}
+                </td>
+                <td class="text-nowrap">
+                  {{loanData.cummulative_penalty | currency: '₦'}}
+                </td>
+                <td class="text-nowrap">
+                  {{loan.total_paid | currency: '₦'}}
+                </td>
+                <td class="text-nowrap">
+                  ₦{{loanData.balance_on_loan}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="page">
+          <h4 class="page_subtitle text--capital">View Your Repayment History</h4>
+        </div>
+        <div class="customtable_block customtable--bordered">
+          <table class="customtable">
+            <thead>
+              <tr>
+                <th class="text-nowrap">
+                  S/No
+                </th>
+                <th class="text-nowrap">
+                  Amount
+                </th>
+                <th class="text-nowrap">Method</th>
+                <th class="text-nowrap">Repayment Reference</th>
+                <th class="text-nowrap">RRR</th>
+                <th class="text-nowrap">
+                  Payment Date
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="repayments.length; else noRepayments">
+                <tr *ngFor="let repayment of repayments; let index = index">
+                  <td class="text-nowrap">
+                    {{index + 1}}
+                  </td>
+                  <td class="text-nowrap">
+                    {{repayment.repayment_amount | currency: '₦'}}
+                  </td>
+                  <td class="text-nowrap">
+                    {{getRepaymentType(repayment.loan_repayment_method_id) | titlecase}}
+                  </td>
+                  <td class="text-nowrap">
+                    {{repayment.custom_field_8338}}
+                  </td>
+                  <td class="text-nowrap">
+                    {{repayment.custom_field_4084}}
+                  </td>
+                  <td class="text-nowrap">
+                    {{repayment.repayment_collected_date}}
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-template #noRepayments>
+                <tr>
+                  <td colspan="6">
+                    <div class="p-5 text--center">
+                      No Repayment yet
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </ng-container>
+    <ng-template #noData>
+      <div class="customtable_block customtable--bordered mb-5">
+        <table class="customtable">
+          <thead>
+            <tr>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="page">
+        <h4 class="page_subtitle text--capital">View Your Repayment History</h4>
+      </div>
+      <div class="customtable_block customtable--bordered">
+        <table class="customtable">
+          <thead>
+            <tr>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+              <th class="text-nowrap empty">
+                <span></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+              <td class="text-nowrap empty">
+                <span></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+  </div>
+</section>

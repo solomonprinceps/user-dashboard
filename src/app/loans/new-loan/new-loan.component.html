@@ -1,0 +1,99 @@
+<section>
+    <div class="page">
+        <h4 class="page_title text--capital">Loan Application</h4>
+        <h4 class="page_subtitle m-0">Apply for a new loan</h4>
+    </div>
+    <div>
+        <ng-container *ngIf="step == 1">
+            <div nz-row [nzGutter]="[10, 10]">
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" class="gutter-row">
+                  <div class="card border-0 card--grey">
+                    <form nz-form nzLayout="vertical" [formGroup]="newLoanForm" (ngSubmit)="calculateRepaymentForm()">
+                      <nz-form-item>
+                        <nz-form-label>Amount</nz-form-label>
+                        <nz-form-control nzErrorTip="Please enter an amount greater than 20,000.00">
+                          <input nzSize='large' nz-input formControlName="amount" type="number" />
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label>Duration</nz-form-label>
+                        <nz-form-control nzErrorTip="Please select duration">
+                          <nz-select nzSize='large' formControlName="tenor">
+                            <nz-option *ngFor="let tenor of tenors" [nzValue]="tenor.value"
+                              [nzLabel]="tenor.label.toUpperCase()"></nz-option>
+                          </nz-select>
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-control>
+                          <div>
+                            <button class="button button--primary text--upper w-100 button--lg">
+                              <div *ngIf="isLoading" class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
+                              <span *ngIf="!isLoading">apply</span>
+                            </button>
+                          </div>
+                        </nz-form-control>
+                      </nz-form-item>
+                    </form>
+                  </div>
+                </div>
+              </div>
+        </ng-container>
+        <ng-container *ngIf="step == 2">
+            <div class="card border-0 card--grey align-items-center">
+                <div class="customtable_block customtable--bordered mb-5">
+                    <table class="customtable">
+                        <thead>
+                            <tr>
+                                <th class="text-nowrap">
+                                    Amount
+                                </th>
+                                <th class="text-nowrap">
+                                    Duration
+                                </th>
+                                <th class="text-nowrap">
+                                    Monthly Repayment	
+                                </th>
+                                <th class="text-nowrap">
+                                    Loan Start Date	
+                                </th>
+                                <th class="text-nowrap">
+                                    Loan End Date		
+                                </th>
+                                <th class="text-nowrap">
+                                    Interest Per Day
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <td class="text-nowrap">{{loanBreakdown?.amount | currency: '₦'}}</td>
+                              <td class="text-nowrap">{{loanBreakdown?.tenor}} Months</td>
+                              <td class="text-nowrap">{{loanBreakdown?.monthlyrepayment | currency: '₦'}}</td>
+                              <td class="text-nowrap">{{loanBreakdown?.startdate | date}}</td>
+                              <td class="text-nowrap">{{loanBreakdown?.expectedenddate | date}}</td>
+                                  <td class="text-nowrap">
+                                    0.25%
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="my-4 text--medium text--300">By clicking Start Application, I consent to Credit Wallet obtaining information from relevant third parties as may be necessary, on my employment details, salary payment, loans and other related data, to make a decision on my loan application. I also consent to the loan amounts being deducted from my salary at source before credit to my account and any outstanding loans being recovered automatically from any other accounts linked to me in the case of default
+                </p>
+                <button class="button button--primary button--wider text--upper">submit application</button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="step === 3">
+          <div class="card shadow">
+            <div class="card-body text--center p-5">
+              <p class="text--medium">
+                Loan Application submitted successfully. Kindly await a response from our team!
+              </p>
+            </div>
+          </div>
+        </ng-container>
+    </div>
+</section>

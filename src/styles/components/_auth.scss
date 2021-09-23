@@ -1,0 +1,44 @@
+@import '../abstract/variables';
+
+input{
+    &:-webkit-autofill{
+        background-clip: text;
+        -webkit-background-clip: text;
+    }
+}
+
+.account{
+    // min-height: 100vh;
+    background: linear-gradient(180deg, #A1CBFD 0%, rgba(241, 246, 252, 0.490239) 100%);
+    background-image: url('/assets/images/bg.png');
+    background-size: cover;
+    background-position:  center;
+    background-repeat: no-repeat;
+
+    align-items: center;
+    &_link{
+        color: $color-primary2;
+    }
+    &_logo {
+        display: flex;
+        align-items: center;
+
+        img {
+            margin-right: 1rem;
+        }
+
+        h6{
+            font-weight: 700;
+            font-size: 3rem;
+            color: $color-black;
+            margin: 0;
+            text-transform: capitalize;
+        }
+    }
+    header{
+        font-size: 1.8rem;
+        color: $color-black;
+        font-weight: 400;
+        margin-bottom: 3rem;
+    }
+}

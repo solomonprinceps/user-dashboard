@@ -1,0 +1,212 @@
+<section class="loans">
+    <div class="page">
+        <h4 class="page_title text--capital">My Loans</h4>
+        <h4 class="page_subtitle m-0">View all loans</h4>
+    </div>
+    <div>
+        <ng-container *ngIf="loans; else noData">
+          <div class="customtable_block customtable--bordered">
+            <table class="customtable">
+                <thead>
+                    <tr>
+                        <th class="text-nowrap">
+                            S/No	
+                        </th>
+                        <th class="text-nowrap">
+                          Loan ID
+                        </th>
+                        <th class="text-nowrap">
+                            Amount
+                        </th>
+                        <!-- <th class="text-nowrap">
+                            Status
+                        </th> -->
+                        <th class="text-nowrap">
+                            Duration
+                        </th>
+                        <th class="text-nowrap">
+                            Loan Release Date	
+                        </th>
+                        <th class="text-nowrap">
+                            Monthly Repayment	
+                        </th>
+                        <th class="text-nowrap">
+                            Maturity Date		
+                        </th>
+                        <!-- <th class="text-nowrap">
+                            Balance
+                        </th> -->
+                        <th class="text-nowrap">
+                            
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="loans.length; else noLoans">
+                      <tr *ngFor="let loan of loans; let index = index">
+                        <td class="text-nowrap">
+                            {{index + 1}}
+                          </td>
+                          <td class="text-nowrap">
+                            {{loan.loan_application_id | uppercase}}
+                          </td>
+                          <td class="text-nowrap">
+                            {{loan.loan_principal_amount | currency: '₦'}}
+                          </td>
+                          <!-- <td class="text-nowrap">
+                            <nz-tag [nzColor]="'#11EE42'">Fully Paid</nz-tag>
+                          </td> -->
+                          <td class="text-nowrap">
+                            {{loan.loan_duration}} months	
+                          </td>
+                          <td class="text-nowrap">
+                            {{loan.loan_released_date}}
+                          </td>
+                          <td class="text-nowrap">
+                            {{loan.first_repayment_amount | currency: '₦'}}
+                          </td>
+                          <td class="text-nowrap">
+                            {{loan.due_date}}
+                          </td>
+                          <!-- <td class="text-nowrap">
+                            {{loan.balance_amount | currency: '₦'}}
+                          </td> -->
+                          <td class="text-nowrap">
+                           <a [routerLink]="['/loans/view/', loan.loan_id]" class="button button--primary button--sm text--upper">
+                               View
+                           </a>
+                          </td>
+                    </tr>
+                    </ng-container>
+                    <ng-template #noLoans>
+                      <tr>
+                        <td colspan="9">
+                          <div class="p-5 text--center">
+                            No loans
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+        </ng-container>
+        <ng-template #noData>
+          <div class="customtable_block customtable--bordered">
+            <table class="customtable">
+                <thead>
+                    <tr>
+                        <th class="text-nowrap empty">
+                          <span></span>
+                        </th>
+                        <th class="text-nowrap empty">
+                          <span></span>
+                        </th>
+                        <th class="text-nowrap empty">
+                          <span></span>
+                        </th>
+                        <th class="text-nowrap empty">
+                          <span></span>
+                        </th>
+                        <th class="text-nowrap empty">
+                          <span></span>
+                        </th>
+                        <th class="text-nowrap empty">
+                          <span></span>
+                        </th>
+                        <th class="text-nowrap empty">
+                            <span></span>
+                        </th>
+                        <th class="text-nowrap empty">
+                          <span></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-nowrap empty">
+                      <span></span>
+                      </td>
+                      <td class="text-nowrap empty">
+                        <span></span>
+                      </td>
+                      <td class="text-nowrap empty">
+                        <span></span>
+                      </td>
+                      <td class="text-nowrap empty">
+                        <span></span>
+                      </td>
+                      <td class="text-nowrap empty">
+                        <span></span>
+                      </td>
+                      <td class="text-nowrap empty">
+                        <span></span>
+                      </td>
+                      <td class="text-nowrap empty">
+                        <span></span>
+                      </td>
+                      <td class="text-nowrap empty">
+                        <span></span>
+                      </td>
+                     
+                </tr>
+                <tr>
+                  <td class="text-nowrap empty">
+                    <span></span>
+                    </td>
+                    <td class="text-nowrap empty">
+                      <span></span>
+                    </td>
+                    <td class="text-nowrap empty">
+                      <span></span>
+                    </td>
+                    <td class="text-nowrap empty">
+                      <span></span>
+                    </td>
+                    <td class="text-nowrap empty">
+                      <span></span>
+                    </td>
+                    <td class="text-nowrap empty">
+                      <span></span>
+                    </td>
+                    <td class="text-nowrap empty">
+                      <span></span>
+                    </td>
+                    <td class="text-nowrap empty">
+                      <span></span>
+                    </td>
+                   
+              </tr>
+              <tr>
+                <td class="text-nowrap empty">
+                  <span></span>
+                  </td>
+                  <td class="text-nowrap empty">
+                    <span></span>
+                  </td>
+                  <td class="text-nowrap empty">
+                    <span></span>
+                  </td>
+                  <td class="text-nowrap empty">
+                    <span></span>
+                  </td>
+                  <td class="text-nowrap empty">
+                    <span></span>
+                  </td>
+                  <td class="text-nowrap empty">
+                    <span></span>
+                  </td>
+                  <td class="text-nowrap empty">
+                    <span></span>
+                  </td>
+                  <td class="text-nowrap empty">
+                    <span></span>
+                  </td>
+                 
+            </tr>
+                </tbody>
+            </table>
+        </div>
+        </ng-template>
+    </div>
+</section>

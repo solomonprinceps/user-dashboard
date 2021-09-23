@@ -1,0 +1,284 @@
+<section class="dashboard">
+  <div class="page">
+    <h4 class="page_title text--capital">Hello, {{user?.borrower_firstname}} </h4>
+    <h4 class="page_subtitle m-0">Account and Current Loan Summary as at today {{todayDate}}
+    </h4>
+  </div>
+  <nz-alert nzType="error" nzBanner class="text--white" nzMessage="Please note that the repayment from May, 2021 till date has not been credited to the account of Princeps Credit Systems Limited by IPPIS. However, we are working to get the issue resolved." nzCloseText="Close"></nz-alert>
+<ng-container *ngIf="dashboardData; else noData">
+  <div nz-row [nzGutter]="32">
+    <div nz-col nzXs="24" nzMd="10" nzLg="8">
+      <div class="account_card account_card--blue">
+        <h6 class="account_card_text">Current Loan Balance</h6>
+        <div class="account_balance">
+          ₦{{dashboardData.current_loan_balance ? dashboardData.current_loan_balance: 0}}
+        </div>
+      </div>
+    </div>
+    <!-- <div nz-col nzXs="24" nzMd="10" nzLg="8">
+      <div class="account_card account_card--grey">
+        <h6 class="account_card_text">Amount Available for Refund</h6>
+        <div class="account_balance">
+          {{dashboardData.available_refund  | currency: '₦'}}
+        </div>
+      </div>
+    </div> -->
+    <div nz-col nzXs="24" nzMd="10" nzLg="8">
+      <div class="account_card account_card--grey">
+        <h6 class="account_card_text">Total Number of Transactions</h6>
+        <div class="account_balance">
+          {{dashboardData.total_transactions}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 5rem;">
+    <div nz-row [nzGutter]="24">
+      <div nz-col nzXs="24" nzMd="12">
+        <div class="page">
+          <h4 class="page_title text--capital">Quick Links</h4>
+          <h4 class="page_subtitle m-0">Self Service links for faster result for your service request
+          </h4>
+        </div>
+        <div style="margin-bottom: 5rem;">
+          <div nz-row [nzGutter]="16">
+            <div nz-col nzXs="24" nzMd="10" nzLg="8">
+              <div (click)="liquidateLoan()" class="quick_card quick_card--grey">
+                <img src="assets/images/ql1.svg" alt="Loan Liquidation" width="65" height="65">
+                <p class="quick_text">Loan Liquidation</p>
+              </div>
+            </div>
+            <div nz-col nzXs="24" nzMd="10" nzLg="8">
+              <div (click)="openLetterModal('indebtedness')" class="quick_card quick_card--green">
+                <img src="assets/images/ql2.svg" alt="Indebtedness Letter" width="65" height="65">
+                <p class="quick_text">Indebtedness Letter</p>
+              </div>
+            </div>
+            <div nz-col nzXs="24" nzMd="10" nzLg="8">
+              <div (click)="openLetterModal('non-indebtedness')" class="quick_card quick_card--blue">
+                <img src="assets/images/ql3.svg" alt="Non-Indebtedness Letter" width="65" height="65">
+                <p class="quick_text">Non-Indebtedness Letter</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <a class="quick_link">
+            <img src="assets/images/help.svg" alt="Contact Us" width="35" height="35">
+            <p class="ms-3 text--regular">Need any help? Our customer service personnels are available 24/7 to help you
+            </p>
+          </a>
+          <a class="quick_link">
+            <img src="assets/images/loans.svg" alt="Loan Repayment" width="35" height="35">
+            <p class="ms-3 text--regular">Make repayment manually</p>
+          </a>
+        </div>
+      </div>
+      <div nz-col nzXs="24" nzMd="12">
+        <div class="page">
+          <h4 class="page_title text--capital">Recent Repayments</h4>
+          <h4 class="page_subtitle m-0">This shows your most recent repayemnts across your Credit Wallet account</h4>
+        </div>
+        <div class="customtable_block customtable--bordered">
+          <table class="customtable">
+            <thead>
+              <tr>
+                <th class="text-nowrap">
+                  S/No
+                </th>
+                <th class="text-nowrap">
+                  Amount
+                </th>
+                <th class="text-nowrap">Method</th>
+                <th class="text-nowrap">
+                  Payment Date
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="repayments.length; else noRepayments">
+                <tr *ngFor="let repayment of repayments; let index = index">
+                  <td class="text-nowrap">
+                    {{index + 1}}
+                  </td>
+                  <td class="text-nowrap">
+                    {{repayment.repayment_amount | currency: '₦'}}
+                  </td>
+                  <td class="text-nowrap">
+                    {{getRepaymentType(repayment.loan_repayment_method_id) | titlecase}}
+                  </td>
+                  <td class="text-nowrap">
+                    {{repayment.repayment_collected_date}}
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-template #noRepayments>
+                <tr>
+                  <td colspan="4">
+                    <div class="p-5 text--center">
+                      No Repayment yet
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #noData>
+  <div nz-row [nzGutter]="32">
+    <div nz-col nzXs="24" nzMd="10" nzLg="8">
+      <div class="account_card empty">
+        
+      </div>
+    </div>
+    <div nz-col nzXs="24" nzMd="10" nzLg="8">
+      <div class="account_card empty">
+        
+      </div>
+    </div>
+    <div nz-col nzXs="24" nzMd="10" nzLg="8">
+      <div class="account_card empty">
+        
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 5rem;">
+    <div nz-row [nzGutter]="24">
+      <div nz-col nzXs="24" nzMd="12">
+        <div class="page">
+          <h4 class="page_title text--capital">Quick Links</h4>
+          <h4 class="page_subtitle m-0">Self Service links for faster result for your service request
+          </h4>
+        </div>
+        <div style="margin-bottom: 5rem;">
+          <div nz-row [nzGutter]="16">
+            <div nz-col nzXs="24" nzMd="10" nzLg="8">
+              <div class="quick_card empty">
+
+              </div>
+            </div>
+            <div nz-col nzXs="24" nzMd="10" nzLg="8">
+             <div class="quick_card empty">
+                
+              </div>
+            </div>
+            <div nz-col nzXs="24" nzMd="10" nzLg="8">
+              <div class="quick_card empty">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <a class="quick_link empty">
+           
+          </a>
+          <a class="quick_link empty">
+           
+          </a>
+        </div>
+      </div>
+      <div nz-col nzXs="24" nzMd="12">
+        <div class="page">
+          <h4 class="page_title text--capital">Recent Activities</h4>
+          <h4 class="page_subtitle m-0">This shows your most recent activities across your Credit Wallet account</h4>
+        </div>
+        <div>
+          <a class="quick_link empty mb-1">
+           
+          </a>
+          <a class="quick_link empty mb-1">
+           
+          </a>
+          <a class="quick_link empty mb-1">
+           
+          </a>
+          <a class="quick_link empty mb-1">
+           
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<nz-modal #pageModal nzClassName="small_modal"  [(nzVisible)]="liquidateModal" [nzFooter]="null" nzKeyboard="false" nzMaskClosable="false"
+  (nzOnCancel)="closeLiquidateModal()">
+  <div class="">
+    <form>
+      <h2 class="text--medium text--bold mb4 text--capital">
+        liquidate loan
+      </h2>
+      <div class="mb2">
+        <div nz-row [nzGutter]="[10, 10]">
+          <div nz-col nzSpan="24" class="gutter-row">
+            <label class="form_label text--regular text--capital text--deep-black">
+              email
+            </label>
+            <div class="mt1">
+              <input nzSize='large' name="email" (ngModelChange)="showEmailError = false" nz-input [(ngModel)]="email" type="email" />
+              <span *ngIf="showEmailError" class="text--danger mt-2 d-block text--semi-small">Please enter valid email</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text--right">
+        <button (click)="closeLiquidateModal()" class="button text--capital button--primary-outline">
+          close
+        </button>
+        &nbsp;
+        <button (click)="processLiquidation()" class="button text--capital button--primary ">
+          proceed
+        </button>
+      </div>
+    </form>
+  </div>
+</nz-modal>
+
+<nz-modal #pageModal nzClassName="small_modal"  [(nzVisible)]="letterModal" [nzFooter]="null" nzKeyboard="false" nzMaskClosable="false"
+  (nzOnCancel)="closeLetterModal()">
+  <div class="">
+    <form>
+      <h2 class="text--medium text--bold mb4 text--capital">
+        Letter of {{letterType}}
+      </h2>
+      <div class="mb2">
+        <div nz-row [nzGutter]="[10, 10]">
+          <div nz-col nzSpan="24" class="gutter-row">
+            <label class="form_label text--regular text--capital text--deep-black">
+              email
+            </label>
+            <div class="mt1">
+              <input nzSize='large' name="email" (ngModelChange)="showEmailError = false" nz-input [(ngModel)]="email" type="email" />
+              <span *ngIf="showEmailError" class="text--danger mt-2 d-block text--semi-small">Please enter valid email</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text--right">
+        <button (click)="closeLetterModal()" class="button text--capital button--primary-outline">
+          close
+        </button>
+        &nbsp;
+        <button (click)="processLetter()" class="button text--capital button--primary ">
+          proceed
+        </button>
+      </div>
+    </form>
+  </div>
+</nz-modal>

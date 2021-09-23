@@ -1,0 +1,24 @@
+@import '../abstract/variables';
+
+.card {
+  padding: 1.5rem;
+  background-color: $color-white;
+  border-radius: 10px;
+  
+  @media screen and (min-width: 768px) {
+    padding: 3rem;
+  }
+
+  &_colored {
+    // background-color: $color-secondary-light;
+    background-color: var(--background-default);
+  }
+
+  &_header{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+    color: var(--color-default);
+}
+}
