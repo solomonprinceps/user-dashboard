@@ -43,11 +43,11 @@ export class SingleLoanComponent implements OnInit {
   }
 
   requestRefund() {
-    this.service.requestrefunds(this.loan?.loan_application_id).subscribe((data: any) => {
-      if (data.status === 'success') {
-        this.message.create('success', data.message);
-      }
-    });
+    // this.service.requestrefunds(this.loan?.loan_application_id).subscribe((data: any) => {
+    //   if (data.status === 'success') {
+    //     this.message.create('success', data.message);
+    //   }
+    // });
   }
 
   getRepaymentType(methodID) {
